@@ -47,6 +47,16 @@ public class ControllerManagedBeanCliente implements Serializable{
         }
         return "index";
     }
+    
+    public void buscarClientexID(){
+        if(gestorbd.BuscarClientexID(cliente.getClave())){
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("#");
+            } catch (IOException e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE,null, e);
+            }
+        }
+    }
 
     public ArrayList<Cliente> getClienteList() {
         return clienteList;
