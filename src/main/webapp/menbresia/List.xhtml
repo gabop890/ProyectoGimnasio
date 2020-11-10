@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <style type="text/css">
+            .ui-g div {
+                background-color: #ededed;
+                text-align: center;
+                border: 1px solid #fafafa;
+            }
+            i {
+                margin-right: 10px;
+            }
+
+            .ui-grid-col-3 {
+                padding: 4px 10px;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-2">
+                <h:link outcome="/afiliado/List" value="Afiliado"/>
+                <br />
+                <h:link outcome="/clase/List" value="Clase"/>
+                <br />
+                <h:link outcome="/empleado/List" value=" Empleado"/>
+                <br />
+                <h:link outcome="/maquina/List" value="Maquina"/>
+                <br />
+                <h:link outcome="/menbresia/List" value="Menbresia"/>
+                <br />
+                <h:link  value="Participa"/>
+                <br />
+                <h:link  value="Utiliza"/>
+            </div>
+            <div class="ui-g-12 ui-md-10 ui-g-nopad">
+                <div class="ui-g-12">
+                    Bar
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                    <div class="ui-g">
+                        <h:form id="form">                                   
+                            <p:growl id="msgs" showDetail="true"/>      
+                            <p:dataTable id="cars1" widgetVar="cars1" var="cliente" value="#{controllerManagedBeanCliente.clienteList}" editable="true" style="margin-bottom:20px"  rows="10"
+                                         paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                         rowsPerPageTemplate="5,10,15">
+                                <f:facet name="header">
+                                    Tabla clientes
+                                </f:facet>
+
+                                <p:column headerText="Numero de identificación">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{cliente.clave}" /></f:facet>
+                                        <f:facet name="input"><p:inputText id="modelInput" value="#{cliente.clave}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Nombre">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{cliente.nombre}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{cliente.nombre}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Correo electronico">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{cliente.correo}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{cliente.correo}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Fecha de nacimiento">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{cliente.edad}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{cliente.edad}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="Estatura">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{cliente.estatura}" /></f:facet>
+                                        <f:facet name="input"><p:inputNumber value="#{cliente.estatura}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="peso">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{cliente.peso}" /></f:facet>
+                                        <f:facet name="input"><p:inputNumber value="#{cliente.peso}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                            </p:dataTable>
+
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <p:commandButton value="Agregar nuevo cliente" type="button" onclick="PF('addcli').show();" />
+                                    <p:commandButton value="Actualizar cliente" type="button" onclick="PF('buscarCli').show();"/>
+                                    <p:commandButton value="Eliminar cliente" type="button" onclick=""/>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <p:outputLabel>Autores:</p:outputLabel>
+                <br></br>
+                <p:outputLabel>Gabriel Peña Nivia, Brian Riffo, Sergio Solano.</p:outputLabel>
+            </div>
+        </div>
+        <!-- Mensaje modal para ingresar un nuevo cliente -->
+        <p:dialog header="Nuevo cliente" widgetVar="addcli" modal="true" height="400">
+            <h:form id="addcliente">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="firstname6" value="Documento" />
+                        <p:inputText id="firstname6" value="#{controllerManagedBeanCliente.cliente.clave}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="lastname6" value="Nombre" />
+                        <p:inputText id="lastname6" value="#{controllerManagedBeanCliente.cliente.nombre}"/>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="city" value="Correo" />
+                        <p:inputText id="city" value="#{controllerManagedBeanCliente.cliente.correo}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p:outputLabel for="german" value="Fecha de nacimiento" />
+                        <p:calendar id="german" value="#{controllerManagedBeanCliente.cliente.edad}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+                    </div>
+                    <div class="p-field p-col-12">
+                        <p:outputLabel for="address" value="estatura" />
+                        <p:inputText id="address" value="#{controllerManagedBeanCliente.cliente.estatura}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p:outputLabel for="zip" value="peso" />
+                        <p:inputText id="zip" value="#{controllerManagedBeanCliente.cliente.peso}"/>
+                    </div>
+                </div>
+                <p:commandButton action="#{controllerManagedBeanCliente.guardarCliente()}" value="Guardar" />
+            </h:form>
+        </p:dialog> 
+        <!-- Busca el cliente con por el documento -->
+        <p:dialog header="Modal Dialog" widgetVar="buscarCli" modal="true" height="100">
+            <h:form id="buscaC" >
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel value="Ingrese el documento" />
+                        <p:inputText value="#{controllerManagedBeanCliente.cliente.clave}" />
+                        <p:commandButton value="Buscar"   action="#{controllerManagedBeanCliente.buscarClientexID()}" />
+                    </div>
+                </div>
+            </h:form> 
+        </p:dialog>
+        <!-- Mensaje modal para editar al cliente -->
+        <p:dialog header="Modal Dialog" widgetVar="editarCli" modal="true" height="400">
+            <h:form id="editCliente">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="firstname6" value="Documento" />
+                        <p:outputLabel id="firstname6" value="#{controllerManagedBeanCliente.cliente.clave}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="lastname6" value="Nombre" />
+                        <p:inputText id="lastname6" value="#{controllerManagedBeanCliente.cliente.nombre}"/>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="city" value="Correo" />
+                        <p:inputText id="city" value="#{controllerManagedBeanCliente.cliente.correo}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p:outputLabel for="german" value="Fecha de nacimiento" />
+                        <p:calendar id="german" value="#{controllerManagedBeanCliente.cliente.edad}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+                    </div>
+                    <div class="p-field p-col-12">
+                        <p:outputLabel for="address" value="estatura" />
+                        <p:inputText id="address" value="#{controllerManagedBeanCliente.cliente.estatura}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p:outputLabel for="zip" value="peso" />
+                        <p:inputText id="zip" value="#{controllerManagedBeanCliente.cliente.peso}"/>
+                    </div>
+                </div>
+                <p:commandButton action="#{controllerManagedBeanCliente.guardarCliente()}" value="Guardar" />
+            </h:form>
+        </p:dialog>  
+    </h:body>
+</html>

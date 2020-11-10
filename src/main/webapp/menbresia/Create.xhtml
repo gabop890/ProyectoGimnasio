@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MenbresiaCreateDlg" widgetVar="MenbresiaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMenbresiaTitle}">
+            <h:form id="MenbresiaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{menbresiaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMenbresiaLabel_codigo}" for="codigo" />
+                        <p:inputText id="codigo" value="#{menbresiaController.selected.codigo}" title="#{bundle.CreateMenbresiaTitle_codigo}" required="true" requiredMessage="#{bundle.CreateMenbresiaRequiredMessage_codigo}"/>
+                        <p:outputLabel value="#{bundle.CreateMenbresiaLabel_fechainicio}" for="fechainicio" />
+                        <p:calendar id="fechainicio" pattern="MM/dd/yyyy" value="#{menbresiaController.selected.fechainicio}" title="#{bundle.EditMenbresiaTitle_fechainicio}" required="true" requiredMessage="#{bundle.EditMenbresiaRequiredMessage_fechainicio}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMenbresiaLabel_fechafin}" for="fechafin" />
+                        <p:calendar id="fechafin" pattern="MM/dd/yyyy" value="#{menbresiaController.selected.fechafin}" title="#{bundle.EditMenbresiaTitle_fechafin}" required="true" requiredMessage="#{bundle.EditMenbresiaRequiredMessage_fechafin}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMenbresiaLabel_valor}" for="valor" />
+                        <p:inputText id="valor" value="#{menbresiaController.selected.valor}" title="#{bundle.CreateMenbresiaTitle_valor}" required="true" requiredMessage="#{bundle.CreateMenbresiaRequiredMessage_valor}"/>
+                        <p:outputLabel value="#{bundle.CreateMenbresiaLabel_cliente}" for="cliente" />
+                        <p:selectOneMenu id="cliente" value="#{menbresiaController.selected.cliente}" required="true" requiredMessage="#{bundle.EditMenbresiaRequiredMessage_cliente}">
+                            <f:selectItems value="#{afiliadoController.itemsAvailableSelectOne}"
+                                           var="clienteItem"
+                                           itemValue="#{clienteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{menbresiaController.create}" value="#{bundle.Save}" update="display,:MenbresiaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MenbresiaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MenbresiaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

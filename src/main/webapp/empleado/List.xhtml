@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <style type="text/css">
+            .ui-g div {
+                background-color: #ededed;
+                text-align: center;
+                border: 1px solid #fafafa;
+            }
+            i {
+                margin-right: 10px;
+            }
+
+            .ui-grid-col-3 {
+                padding: 4px 10px;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-2">
+                <h:link outcome="/afiliado/List" value="Afiliado"/>
+                <br />
+                <h:link outcome="/clase/List" value="Clase"/>
+                <br />
+                <h:link outcome="/empleado/List" value=" Empleado"/>
+                <br />
+                <h:link outcome="/maquina/List" value="Maquina"/>
+                <br />
+                <h:link outcome="/menbresia/List" value="Menbresia"/>
+                <br />
+                <h:link  value="Participa"/>
+                <br />
+                <h:link  value="Utiliza"/>
+            </div>
+            <div class="ui-g-12 ui-md-10 ui-g-nopad">
+                <div class="ui-g-12">
+                    Bar
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                    <div class="ui-g">
+                        <h:form id="form">                                   
+                            <p:growl id="msgs" showDetail="true"/>      
+                            <p:dataTable id="cars1" widgetVar="cars1" var="empleado" value="#{controllerManagedBeanEmpleado.empleadoList}" editable="true" style="margin-bottom:20px"  rows="10"
+                                         paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                         rowsPerPageTemplate="5,10,15">
+                                <f:facet name="header">
+                                    Tabla Empleados
+                                </f:facet>
+
+                                <p:column headerText="Numero de identificación">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{empleado.id}" /></f:facet>
+                                        <f:facet name="input"><p:inputText id="modelInput" value="#{empleado.id}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Nombre">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{empleado.nombre}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{empleado.nombre}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Cargo">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{empleado.cargo}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{empleado.cargo}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Salario">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{empleado.salario}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{empleado.salario}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="Direccion">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{empleado.direccion}" /></f:facet>
+                                        <f:facet name="input"><p:inputNumber value="#{empleado.direccion}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="celular">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{empleado.celular}" /></f:facet>
+                                        <f:facet name="input"><p:inputNumber value="#{empleado.celular}" style="width:100%" label="Year"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                            </p:dataTable>
+
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <p:commandButton value="Agregar nuevo empleado" type="button" onclick="PF('addcli').show();" />
+                                    <p:commandButton value="Actualizar " type="button" onclick="PF('buscarCli').show();"/>
+                                    <p:commandButton value="Eliminar " type="button" onclick=""/>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <p:outputLabel>Autores:</p:outputLabel>
+                <br></br>
+                <p:outputLabel>Gabriel Peña Nivia, Brian Riffo, Sergio Solano.</p:outputLabel>
+            </div>
+        </div>
+        <!-- Mensaje modal para ingresar un nuevo empleado -->
+        <p:dialog header="Nuevo Empleado" widgetVar="addcli" modal="true" height="400">
+            <h:form id="addEmpleado">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="firstname6" value="Documento" />
+                        <p:inputText id="firstname6" value="#{controllerManagedBeanEmpleado.empleado.id}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="lastname6" value="Nombre" />
+                        <p:inputText id="lastname6" value="#{controllerManagedBeanEmpleado.empleado.nombre}"/>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel  value="cargo" />
+                        <p:inputText  value="#{controllerManagedBeanEmpleado.empleado.cargo}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p:outputLabel  value="salario" />
+                        <p:inputText  value="#{controllerManagedBeanEmpleado.empleado.salario}"/>
+                    </div>
+                    <div class="p-field p-col-12">
+                        <p:outputLabel for="address" value="direccion" />
+                        <p:inputText id="address" value="#{controllerManagedBeanEmpleado.empleado.direccion}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p:outputLabel for="zip" value="celular" />
+                        <p:inputText id="zip" value="#{controllerManagedBeanEmpleado.empleado.celular}"/>
+                    </div>
+                </div>
+                <p:commandButton action="#{controllerManagedBeanEmpleado.guardarEmpleado()}" value="Guardar" />
+            </h:form>
+        </p:dialog> 
+        <!-- Busca el cliente con por el documento -->
+        <p:dialog header="Modal Dialog" widgetVar="buscarCli" modal="true" height="100">
+            <h:form id="buscaC" >
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel value="Ingrese el documento" />
+                        <p:inputText value="#{controllerManagedBeanCliente.cliente.clave}" />
+                        <p:commandButton value="Buscar"   action="#{controllerManagedBeanCliente.buscarClientexID()}" />
+                    </div>
+                </div>
+            </h:form> 
+        </p:dialog>
+        <!-- Mensaje modal para editar al cliente -->
+        <p:dialog header="Modal Dialog" widgetVar="editarCli" modal="true" height="400">
+            <h:form id="editCliente">
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="firstname6" value="Documento" />
+                        <p:outputLabel id="firstname6" value="#{controllerManagedBeanCliente.cliente.clave}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel for="lastname6" value="Nombre" />
+                        <p:inputText id="lastname6" value="#{controllerManagedBeanCliente.cliente.nombre}"/>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel  value="Correo" />
+                        <p:inputText  value="#{controllerManagedBeanCliente.cliente.correo}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p:outputLabel for="german" value="Fecha de nacimiento" />
+                        <p:calendar id="german" value="#{controllerManagedBeanCliente.cliente.edad}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+                    </div>
+                    <div class="p-field p-col-12">
+                        <p:outputLabel for="address" value="estatura" />
+                        <p:inputText id="address" value="#{controllerManagedBeanCliente.cliente.estatura}"/>
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <p:outputLabel for="zip" value="peso" />
+                        <p:inputText id="zip" value="#{controllerManagedBeanCliente.cliente.peso}"/>
+                    </div>
+                </div>
+                <p:commandButton action="#{controllerManagedBeanCliente.guardarCliente()}" value="Guardar" />
+            </h:form>
+        </p:dialog>  
+    </h:body>
+</html>

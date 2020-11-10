@@ -6,6 +6,8 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
         <style type="text/css">
             .ui-g div {
                 background-color: #ededed;
@@ -23,9 +25,24 @@
     </h:head>
 
     <h:body>
-        <h3>Fisico Trainning System</h3>
+
+
         <div class="ui-g">
-            <div class="ui-g-12 ui-md-2">Menu</div>
+            <div class="ui-g-12 ui-md-2">
+                <h:link outcome="/afiliado/List" value="Afiliado"/>
+                <br />
+                <h:link outcome="/clase/List" value="Clase"/>
+                <br />
+                <h:link outcome="/empleado/List" value=" Empleado"/>
+                <br />
+                <h:link outcome="/maquina/List" value="Maquina"/>
+                <br />
+                <h:link outcome="/menbresia/List" value="Menbresia"/>
+                <br />
+                <h:link  value="Participa"/>
+                <br />
+                <h:link  value="Utiliza"/>
+            </div>
             <div class="ui-g-12 ui-md-10 ui-g-nopad">
                 <div class="ui-g-12">
                     Bar

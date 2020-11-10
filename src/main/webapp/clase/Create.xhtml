@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClaseCreateDlg" widgetVar="ClaseCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClaseTitle}">
+            <h:form id="ClaseCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{claseController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_codigo}" for="codigo" />
+                        <p:inputText id="codigo" value="#{claseController.selected.codigo}" title="#{bundle.CreateClaseTitle_codigo}" required="true" requiredMessage="#{bundle.CreateClaseRequiredMessage_codigo}"/>
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{claseController.selected.nombre}" title="#{bundle.CreateClaseTitle_nombre}" required="true" requiredMessage="#{bundle.CreateClaseRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{claseController.selected.descripcion}" title="#{bundle.CreateClaseTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateClaseRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_recursos}" for="recursos" />
+                        <p:inputText id="recursos" value="#{claseController.selected.recursos}" title="#{bundle.CreateClaseTitle_recursos}" required="true" requiredMessage="#{bundle.CreateClaseRequiredMessage_recursos}"/>
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_calificacion}" for="calificacion" />
+                        <p:inputText id="calificacion" value="#{claseController.selected.calificacion}" title="#{bundle.CreateClaseTitle_calificacion}" />
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_instructor}" for="instructor" />
+                        <p:selectOneMenu id="instructor" value="#{claseController.selected.instructor}" required="true" requiredMessage="#{bundle.EditClaseRequiredMessage_instructor}">
+                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}"
+                                           var="instructorItem"
+                                           itemValue="#{instructorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{claseController.create}" value="#{bundle.Save}" update="display,:ClaseListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClaseCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClaseCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
