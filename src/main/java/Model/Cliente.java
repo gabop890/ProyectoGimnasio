@@ -5,7 +5,6 @@
  */
 package Model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,19 +13,23 @@ import java.util.Date;
  */
 public class Cliente {
     private Integer clave;
-    private String nombre, correo;
+    private String nombre, correo, password;
     private Date edad;
     private Double peso, estatura;
-    
+    private long celular;
 
-    public Cliente(Integer clave, String nombre, Date edad, String correo, Double peso, Double estatura) {
+    public Cliente(Integer clave, String nombre, String correo, Date edad, Double peso, Double estatura, long celular) {
         this.clave = clave;
         this.nombre = nombre;
-        this.edad = edad;
         this.correo = correo;
+        this.edad = edad;
         this.peso = peso;
         this.estatura = estatura;
+        this.celular = celular;
     }
+    
+
+    
 
     public Cliente() {
     }
@@ -77,6 +80,22 @@ public class Cliente {
 
     public void setEstatura(Double estatura) {
         this.estatura = estatura;
+    }
+
+    public long getCelular() {
+        return celular;
+    }
+
+    public void setCelular(long celular) {
+        this.celular = celular;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
         

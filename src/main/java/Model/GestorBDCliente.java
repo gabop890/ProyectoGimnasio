@@ -29,6 +29,7 @@ public class GestorBDCliente {
     private Date edad;
     private Double peso, estatura;
     private int resultUpdate = 0;
+    private long celular;
 
     public ArrayList<Cliente> leerCliente() {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
@@ -50,7 +51,8 @@ public class GestorBDCliente {
                     correo = gimResultSet.getString("correo");
                     peso = gimResultSet.getDouble("peso");
                     estatura = gimResultSet.getDouble("estatura");
-                    clienteHallado = new Cliente(clave, nombre, edad, correo, peso, estatura);
+                    celular = gimResultSet.getLong("celular");
+                    clienteHallado = new Cliente(clave, nombre, correo, edad, peso, estatura, celular);
                     clientes.add(clienteHallado);
                 } while (gimResultSet.next());
                 conexion.close();
@@ -77,6 +79,8 @@ public class GestorBDCliente {
                     + "','" + cliente.getCorreo()
                     + "'," + cliente.getPeso()
                     + "," + cliente.getEstatura()
+                    + ",'" + cliente.getPassword()
+                    + "'," + cliente.getCelular()
                     + ");");
             if (resultUpdate != 0) {
                 FacesMessage msg = new FacesMessage("Nuevo cliente agregado", String.valueOf(cliente.getClave()));
@@ -95,33 +99,76 @@ public class GestorBDCliente {
         }
     }
 
-    public boolean BuscarClientexID(int id) {
-        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-        Cliente clienteHallado;
+    public boolean borrarAfiliado(Cliente borrarCliente) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
-            gimResultSet = stm.executeQuery("select * from afiliado where (id="
-                    + clave + ");");
-            if (!gimResultSet.next()) {
+            resultUpdate = stm.executeUpdate("delete from afiliado where("
+                    + "id=" + borrarCliente.getClave() + ");");
+            if (resultUpdate != 0) {
+                conexion.close();
+                return true;
+            } else {
+                conexion.close();
+                System.out.println("No se pudo borrar el cliente");
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean buscarAfiliado(Cliente buscarCliente){
+        try {
+            Conexion conectaDB = new Conexion();
+            conexion = conectaDB.getConexion();
+            stm = conexion.createStatement();
+            gimResultSet=stm.executeQuery("select * from afiliado where(id="
+            +buscarCliente.getClave()+");");
+            if(!gimResultSet.next()){
                 System.out.println("No se encontraron registros");
                 conexion.close();
                 return false;
-            } else {
-                clave = gimResultSet.getInt("id");
-                nombre = gimResultSet.getString("nombre");
-                edad = gimResultSet.getDate("edad");
-                correo = gimResultSet.getString("correo");
-                peso = gimResultSet.getDouble("peso");
-                estatura = gimResultSet.getDouble("estatura");
-                clienteHallado = new Cliente(clave, nombre, edad, correo, peso, estatura);
-                clientes.add(clienteHallado);
+            }else{
                 conexion.close();
                 return true;
             }
         } catch (Exception e) {
             System.out.println("Error en la base de datos");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean editarAfiliado(Cliente afiliadoEditar) {
+        try {
+            Conexion conectaDB = new Conexion();
+            conexion = conectaDB.getConexion();
+            stm = conexion.createStatement();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String currentTime = sdf.format(afiliadoEditar.getEdad());
+            resultUpdate = stm.executeUpdate("update afiliado set nombre='"
+                    + afiliadoEditar.getNombre()
+                    + "',edad='" + currentTime
+                    + "',correo='" + afiliadoEditar.getCorreo()
+                    + "',peso=" + afiliadoEditar.getPeso()
+                    + ",estatura=" + afiliadoEditar.getEstatura()
+                    + ", celular =" + afiliadoEditar.getCelular()
+                    + " where id=" + afiliadoEditar.getClave()
+                    + ";");
+            if (resultUpdate != 0) {
+                conexion.close();
+                return true;
+            } else {
+                conexion.close();
+                System.out.println("No se pudo editar el cliente");
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos.");
             e.printStackTrace();
             return false;
         }

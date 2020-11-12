@@ -22,38 +22,58 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "controllerManagedBeanCliente")
 @SessionScoped
-public class ControllerManagedBeanCliente implements Serializable{
-    
+public class ControllerManagedBeanCliente implements Serializable {
+
     private Cliente cliente;
     private GestorBDCliente gestorbd;
     private static ArrayList<Cliente> clienteList;
-    
 
     public ControllerManagedBeanCliente() {
-        gestorbd=new GestorBDCliente();
-        clienteList=gestorbd.leerCliente();
+        gestorbd = new GestorBDCliente();
+        clienteList = gestorbd.leerCliente();
         cliente = new Cliente();
     }
-    
-    public String guardarCliente(){
+
+    public void guardarCliente() {
 //        cliente=new Cliente(cliente.getClave(), cliente.getNombre(), cliente.getEdad(), cliente.getCorreo(), cliente.getPeso(), cliente.getEstatura());
         if (gestorbd.agregarCliente(cliente)) {
+            clienteList = gestorbd.leerCliente();
+            cliente = new Cliente();
+        }
+    }
+
+    public void borrarAfiliado() {
+//        Cliente borrarAfiliado= new Cliente();
+        if (gestorbd.borrarAfiliado(cliente)) {
             try {
-                clienteList=gestorbd.leerCliente();
-                FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-            } catch (IOException e) {
-                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE,null, e);
+                clienteList = gestorbd.leerCliente();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
             }
         }
-        return "index";
     }
     
-    public void buscarClientexID(){
-        if(gestorbd.BuscarClientexID(cliente.getClave())){
+    public void buscarAfiliado(Cliente c){
+        cliente=new Cliente();
+        cliente=c;
+        if(gestorbd.buscarAfiliado(c)){
+            System.out.println("se cargaron los datos");
+        }else{
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("#");
-            } catch (IOException e) {
-                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE,null, e);
+                clienteList=gestorbd.leerCliente();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+            
+    }
+
+    public void editarAfiliado() {
+        if (gestorbd.editarAfiliado(cliente)) {
+            try {
+                clienteList = gestorbd.leerCliente();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }
@@ -69,5 +89,5 @@ public class ControllerManagedBeanCliente implements Serializable{
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-       
+
 }
