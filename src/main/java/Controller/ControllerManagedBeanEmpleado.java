@@ -22,8 +22,7 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "controllerManagedBeanEmpleado")
 @SessionScoped
 public class ControllerManagedBeanEmpleado implements Serializable{
-    private int id, salario;
-    private String nombre, cargo;
+    
     private GestorBDEmpleado gestorbdEmpleado;
     private static ArrayList<Empleado> EmpleadoList;
     private Empleado empleado;
@@ -34,32 +33,51 @@ public class ControllerManagedBeanEmpleado implements Serializable{
         empleado=new Empleado();
     }
     
-    public String guardarEmpleado(){
+    public void guardarEmpleado(){
         if(gestorbdEmpleado.agregar(empleado)){
             try {
                 EmpleadoList=gestorbdEmpleado.leerEmpleado();
-                FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+                empleado=new Empleado();
             } catch (Exception e) {
                 Logger.getLogger(ControllerManagedBeanEmpleado.class.getName()).log(Level.SEVERE,null, e);
             }
         }
-        return "index";
     }
 
-    public int getId() {
-        return id;
+    public void borrarEmpleado(Empleado em) {
+//        Cliente borrarEmpleado= new Cliente();
+        if (gestorbdEmpleado.borrarEmpleado(em)) {
+            try {
+                EmpleadoList = gestorbdEmpleado.leerEmpleado();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }
-
-    public int getSalario() {
-        return salario;
+    
+    public void buscarEmpleado(Empleado c){
+        empleado=new Empleado();
+        empleado=c;
+        if(gestorbdEmpleado.buscarEmpleado(c)){
+            System.out.println("se cargaron los datos");
+        }else{
+            try {
+                EmpleadoList=gestorbdEmpleado.leerEmpleado();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+            
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getCargo() {
-        return cargo;
+    
+    public void editarEmpleado() {
+        if (gestorbdEmpleado.editarEmpleado(empleado)) {
+            try {
+                EmpleadoList = gestorbdEmpleado.leerEmpleado();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }
 
     public ArrayList<Empleado> getEmpleadoList() {

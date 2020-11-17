@@ -7,7 +7,6 @@
 
     <h:head>
         <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
         <style type="text/css">
             .ui-g div {
                 background-color: #ededed;
@@ -27,6 +26,8 @@
     <h:body>
 
 
+        <p:growl id="msj"></p:growl>
+
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2">
                 <h:link outcome="/afiliado/List" value="Afiliado"/>
@@ -45,11 +46,11 @@
             </div>
             <div class="ui-g-12 ui-md-10 ui-g-nopad">
                 <div class="ui-g-12">
-                    Bar
+                    Fisico Trainning System
                 </div>
                 <div class="ui-g-12 ui-g-nopad">
                     <div class="ui-g">
-                        <h:form id="form">                                   
+                        <h:form id="ListaAfiliados">                                   
                             <p:growl id="msgs" showDetail="true"/>      
                             <p:dataTable id="cars1" widgetVar="cars1" var="cliente" value="#{controllerManagedBeanCliente.clienteList}" editable="true" style="margin-bottom:20px"  rows="10"
                                          paginator="true"
@@ -99,13 +100,24 @@
                                         <f:facet name="input"><p:inputNumber value="#{cliente.peso}" style="width:100%" label="Year"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
+                                <p:column headerText="Celular">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{cliente.celular}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{cliente.celular}" /> </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="Editar">
+                                    <p:commandButton value="Editar" actionListener="#{controllerManagedBeanCliente.buscarAfiliado(cliente)}" oncomplete="PF('editarCli').show();" update=":editCliente"/>
+                                </p:column>
+                                <p:column headerText="Eliminar">
+                                    <p:commandButton value="Eliminar" type="submit" action="#{controllerManagedBeanCliente.borrarAfiliado(cliente)}" update=":ListaAfiliados :msj"/>
+                                </p:column>
                             </p:dataTable>
 
                             <div class="ui-g">
                                 <div class="ui-g-12">
                                     <p:commandButton value="Agregar nuevo cliente" type="button" onclick="PF('addcli').show();" />
-                                    <p:commandButton value="Actualizar cliente" type="button" onclick="PF('buscarCli').show();"/>
-                                    <p:commandButton value="Eliminar cliente" type="button" onclick=""/>
+
                                 </div>
                             </div>
                         </h:form>
@@ -120,7 +132,7 @@
         </div>
         <!-- Mensaje modal para ingresar un nuevo cliente -->
         <p:dialog header="Nuevo cliente" widgetVar="addcli" modal="true" height="400">
-            <h:form id="addEmple">
+            <h:form id="addcliente">
                 <div class="ui-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-6">
                         <p:outputLabel for="firstname6" value="Documento" />
@@ -132,8 +144,8 @@
                     </div>
 
                     <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="Correo" />
-                        <p:inputText id="correo" value="#{controllerManagedBeanCliente.cliente.correo}"/>
+                        <p:outputLabel for="city" value="Correo" />
+                        <p:inputText id="city" value="#{controllerManagedBeanCliente.cliente.correo}"/>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
                         <p:outputLabel for="german" value="Fecha de nacimiento" />
@@ -146,39 +158,33 @@
                     <div class="p-field p-col-12 p-md-3">
                         <p:outputLabel for="zip" value="peso" />
                         <p:inputText id="zip" value="#{controllerManagedBeanCliente.cliente.peso}"/>
+                    </div >
+                    <div class="p-field p-col-12">
+                        <p:outputLabel value="Password" />
+                        <p:inputText value="#{controllerManagedBeanCliente.cliente.password}"/>
                     </div>
+                    <div class="p-field p-col-12">
+                        <p:outputLabel value="celular"/>
+                        <p:inputText value="#{controllerManagedBeanCliente.cliente.celular}"/>
+                    </div>
+
                 </div>
-                <p:commandButton action="#{controllerManagedBeanCliente.guardarCliente()}" value="Guardar" />
+                <p:commandButton actionListener="#{controllerManagedBeanCliente.guardarCliente()}" value="Guardar" update=":ListaAfiliados addcliente :msj" oncomplete="PF('addcli').hide();"/>
             </h:form>
         </p:dialog> 
-        <!-- Busca el cliente con por el documento -->
-        <p:dialog header="Modal Dialog" widgetVar="buscarCli" modal="true" height="100">
-            <h:form id="buscaC" >
-                <div class="ui-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="Ingrese el documento" />
-                        <p:inputText value="#{controllerManagedBeanCliente.cliente.clave}" />
-                        <p:commandButton value="Buscar"   action="#{controllerManagedBeanCliente.buscarClientexID()}" />
-                    </div>
-                </div>
-            </h:form> 
-        </p:dialog>
+
         <!-- Mensaje modal para editar al cliente -->
-        <p:dialog header="Modal Dialog" widgetVar="editarCli" modal="true" height="400">
+        <p:dialog header="Editar cliente" widgetVar="editarCli" modal="true" height="400">
             <h:form id="editCliente">
                 <div class="ui-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel for="firstname6" value="Documento" />
-                        <p:outputLabel id="firstname6" value="#{controllerManagedBeanCliente.cliente.clave}"/>
-                    </div>
                     <div class="p-field p-col-12 p-md-6">
                         <p:outputLabel for="lastname6" value="Nombre" />
                         <p:inputText id="lastname6" value="#{controllerManagedBeanCliente.cliente.nombre}"/>
                     </div>
 
                     <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="Correo" />
-                        <p:inputText value="#{controllerManagedBeanCliente.cliente.correo}"/>
+                        <p:outputLabel for="city" value="Correo" />
+                        <p:inputText id="city" value="#{controllerManagedBeanCliente.cliente.correo}"/>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
                         <p:outputLabel for="german" value="Fecha de nacimiento" />
@@ -192,9 +198,14 @@
                         <p:outputLabel for="zip" value="peso" />
                         <p:inputText id="zip" value="#{controllerManagedBeanCliente.cliente.peso}"/>
                     </div>
+
+                    <div class="p-field p-col-12">
+                        <p:outputLabel value="celular"/>
+                        <p:inputText value="#{controllerManagedBeanCliente.cliente.celular}"/>
+                    </div>
                 </div>
-                <p:commandButton action="#{controllerManagedBeanCliente.guardarCliente()}" value="Guardar" />
+                <p:commandButton action="#{controllerManagedBeanCliente.editarAfiliado()}" value="Guardar" update=":ListaAfiliados addcliente :msj" oncomplete="PF('editarCli').hide();"/>
             </h:form>
-        </p:dialog>  
+        </p:dialog> 
     </h:body>
 </html>

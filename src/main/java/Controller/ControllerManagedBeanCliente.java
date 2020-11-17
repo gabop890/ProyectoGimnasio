@@ -42,9 +42,9 @@ public class ControllerManagedBeanCliente implements Serializable {
         }
     }
 
-    public void borrarAfiliado() {
+    public void borrarAfiliado(Cliente c) {
 //        Cliente borrarAfiliado= new Cliente();
-        if (gestorbd.borrarAfiliado(cliente)) {
+        if (gestorbd.borrarAfiliado(c)) {
             try {
                 clienteList = gestorbd.leerCliente();
             } catch (Exception e) {

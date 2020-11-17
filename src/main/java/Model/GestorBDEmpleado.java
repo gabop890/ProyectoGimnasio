@@ -9,7 +9,6 @@ import Config.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -28,7 +27,7 @@ public class GestorBDEmpleado {
     private long celular;
     
     public ArrayList<Empleado> leerEmpleado() {
-        ArrayList<Empleado> empleado = new ArrayList<Empleado>();
+        ArrayList<Empleado> empleados = new ArrayList<Empleado>();
         Empleado empleadoHallado;
         try {
             Conexion conectaDB = new Conexion();
@@ -48,10 +47,10 @@ public class GestorBDEmpleado {
                     direccion = gimResultSet.getString("direccion");
                     celular = gimResultSet.getLong("celular");
                     empleadoHallado = new Empleado(id, salario, celular, nombre, cargo, direccion);
-                    empleado.add(empleadoHallado);
+                    empleados.add(empleadoHallado);
                 } while (gimResultSet.next());
                 conexion.close();
-                return empleado;
+                return empleados;
             }
         } catch (Exception e) {
             System.err.println("error en la base de datos");
@@ -72,10 +71,11 @@ public class GestorBDEmpleado {
                     + "','" + empleado.getCargo()
                     + "'," + empleado.getSalario()
                     + ",'" + empleado.getDireccion()
+                    +"','" + empleado.getPassword()
                     + "'," + empleado.getCelular()
                     + ");");
             if (resultUpdate != 0) {
-                FacesMessage msg = new FacesMessage("Nuevo empleado agregado", String.valueOf(empleado.getNombre()));
+                FacesMessage msg = new FacesMessage("Nuevo empleado agregado", String.valueOf(empleado.getId()));
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 conexion.close();
                 return true;
@@ -86,6 +86,78 @@ public class GestorBDEmpleado {
             }
         } catch (Exception e) {
             System.out.println("Error en la base de datos");
+            e.printStackTrace();
+            return false;
+        }
+    }
+     
+     public boolean borrarEmpleado(Empleado borrarEmpleado) {
+        try {
+            Conexion conectaDB = new Conexion();
+            conexion = conectaDB.getConexion();
+            stm = conexion.createStatement();
+            resultUpdate = stm.executeUpdate("delete from empleado where("
+                    + "id=" + borrarEmpleado.getId()+ ");");
+            if (resultUpdate != 0) {
+                conexion.close();
+                return true;
+            } else {
+                conexion.close();
+                System.out.println("No se pudo borrar el empleado");
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+     
+     public boolean buscarEmpleado(Empleado buscarEmpleado){
+        try {
+            Conexion conectaDB = new Conexion();
+            conexion = conectaDB.getConexion();
+            stm = conexion.createStatement();
+            gimResultSet=stm.executeQuery("select * from empleado where(id="
+            +buscarEmpleado.getId()+");");
+            if(!gimResultSet.next()){
+                System.out.println("No se encontraron registros");
+                conexion.close();
+                return false;
+            }else{
+                conexion.close();
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos");
+            e.printStackTrace();
+            return false;
+        }
+    }
+     
+     public boolean editarEmpleado(Empleado empleadoEditar) {
+        try {
+            Conexion conectaDB = new Conexion();
+            conexion = conectaDB.getConexion();
+            stm = conexion.createStatement();
+            resultUpdate = stm.executeUpdate("update empleado set nombre='"
+                    + empleadoEditar.getNombre()                   
+                    + "',cargo='" + empleadoEditar.getCargo()
+                    + "',salario=" + empleadoEditar.getSalario()
+                    + ",direccion='" + empleadoEditar.getDireccion()
+                    + "',celular=" + empleadoEditar.getCelular()
+                    + " where id=" + empleadoEditar.getId()
+                    + ";");
+            if (resultUpdate != 0) {
+                conexion.close();
+                return true;
+            } else {
+                conexion.close();
+                System.out.println("No se pudo editar el empleado");
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos.");
             e.printStackTrace();
             return false;
         }

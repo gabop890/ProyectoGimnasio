@@ -11,7 +11,7 @@ package Model;
  */
 public class Empleado {
     private int id, salario;
-    private String nombre, cargo, direccion;
+    private String nombre, cargo, direccion, password;
     private long celular;
 
     public Empleado(int id, int salario, long celular, String nombre, String cargo, String direccion) {
@@ -73,6 +73,14 @@ public class Empleado {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     
