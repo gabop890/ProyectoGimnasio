@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package entidad;
 
 import java.util.Date;
 
@@ -22,6 +22,9 @@ public class Maquina {
         this.descripcion = descripcion;
         this.fechaConpra = fechaConpra;
         this.fechaMantenimiento = fechaMantenimiento;
+    }
+
+    public Maquina() {
     }
 
     public int getId() {

@@ -6,48 +6,83 @@
 package Controller;
 
 import Model.GestorBDMaquina;
-import Model.Maquina;
+import entidad.Maquina;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Gabriel
  */
-public class ControllerManagedBeanMaquina {
-    private int id;
-    private String estado, descripcion;
-    private Date fechaConpra, fechaMantenimiento;
+@ManagedBean(name = "controllerManagedBeanMaquina")
+@SessionScoped
+public class ControllerManagedBeanMaquina implements Serializable {
+
+    private Maquina maquina;
     private GestorBDMaquina gestorDBMaquina;
     private static ArrayList<Maquina> maquinaList;
 
     public ControllerManagedBeanMaquina() {
-        gestorDBMaquina=new GestorBDMaquina();
+        gestorDBMaquina = new GestorBDMaquina();
+        maquinaList = gestorDBMaquina.leerMaquina();
+        maquina = new Maquina();
     }
 
-    public int getId() {
-        return id;
+    public void guardarMaquina() {
+        if (gestorDBMaquina.agregarMaquina(maquina)) {
+            maquinaList = gestorDBMaquina.leerMaquina();
+            maquina = new Maquina();
+        }
     }
 
-    public String getEstado() {
-        return estado;
+    public void borrarMaquina(Maquina c) {
+        if (gestorDBMaquina.borrarMaquina(c)) {
+            try {
+                maquinaList = gestorDBMaquina.leerMaquina();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public void buscarMaquina(Maquina c) {
+        maquina = new Maquina();
+        maquina = c;
+        if (gestorDBMaquina.buscarMaquina(c)) {
+            System.out.println("se cargaron los datos");
+        } else {
+            try {
+                maquinaList = gestorDBMaquina.leerMaquina();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+
     }
 
-    public Date getFechaConpra() {
-        return fechaConpra;
+    public void editarMaquina() {
+        if (gestorDBMaquina.editarMaquina(maquina)) {
+            try {
+                maquinaList = gestorDBMaquina.leerMaquina();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }
 
-    public Date getFechaMantenimiento() {
-        return fechaMantenimiento;
+    public Maquina getMaquina() {
+        return maquina;
     }
 
-    public static ArrayList<Maquina> getMaquinaList() {
+    public void setMaquina(Maquina maquina) {
+        this.maquina = maquina;
+    }
+
+    public ArrayList<Maquina> getMaquinaList() {
         return maquinaList;
     }
-    
-    
 }
