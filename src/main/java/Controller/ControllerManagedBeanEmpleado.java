@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -45,7 +44,6 @@ public class ControllerManagedBeanEmpleado implements Serializable{
     }
 
     public void borrarEmpleado(Empleado em) {
-//        Cliente borrarEmpleado= new Cliente();
         if (gestorbdEmpleado.borrarEmpleado(em)) {
             try {
                 EmpleadoList = gestorbdEmpleado.leerEmpleado();
