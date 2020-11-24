@@ -5,14 +5,16 @@
  */
 package Controller;
 
-import Model.Empleado;
+import entidad.Empleado;
 import Model.GestorBDEmpleado;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -20,25 +22,25 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "controllerManagedBeanEmpleado")
 @SessionScoped
-public class ControllerManagedBeanEmpleado implements Serializable{
-    
+public class ControllerManagedBeanEmpleado implements Serializable {
+
     private GestorBDEmpleado gestorbdEmpleado;
     private static ArrayList<Empleado> EmpleadoList;
     private Empleado empleado;
 
     public ControllerManagedBeanEmpleado() {
-        gestorbdEmpleado=new GestorBDEmpleado();
-        EmpleadoList=gestorbdEmpleado.leerEmpleado();
-        empleado=new Empleado();
+        gestorbdEmpleado = new GestorBDEmpleado();
+        EmpleadoList = gestorbdEmpleado.leerEmpleado();
+        empleado = new Empleado();
     }
-    
-    public void guardarEmpleado(){
-        if(gestorbdEmpleado.agregar(empleado)){
+
+    public void guardarEmpleado() {
+        if (gestorbdEmpleado.agregar(empleado)) {
             try {
-                EmpleadoList=gestorbdEmpleado.leerEmpleado();
-                empleado=new Empleado();
+                EmpleadoList = gestorbdEmpleado.leerEmpleado();
+                empleado = new Empleado();
             } catch (Exception e) {
-                Logger.getLogger(ControllerManagedBeanEmpleado.class.getName()).log(Level.SEVERE,null, e);
+                Logger.getLogger(ControllerManagedBeanEmpleado.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }
@@ -52,22 +54,22 @@ public class ControllerManagedBeanEmpleado implements Serializable{
             }
         }
     }
-    
-    public void buscarEmpleado(Empleado c){
-        empleado=new Empleado();
-        empleado=c;
-        if(gestorbdEmpleado.buscarEmpleado(c)){
+
+    public void buscarEmpleado(Empleado c) {
+        empleado = new Empleado();
+        empleado = c;
+        if (gestorbdEmpleado.buscarEmpleado(c)) {
             System.out.println("se cargaron los datos");
-        }else{
+        } else {
             try {
-                EmpleadoList=gestorbdEmpleado.leerEmpleado();
+                EmpleadoList = gestorbdEmpleado.leerEmpleado();
             } catch (Exception e) {
                 Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
             }
         }
-            
+
     }
-    
+
     public void editarEmpleado() {
         if (gestorbdEmpleado.editarEmpleado(empleado)) {
             try {
@@ -75,6 +77,19 @@ public class ControllerManagedBeanEmpleado implements Serializable{
             } catch (Exception e) {
                 Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
             }
+        }
+    }
+
+    public void validarEmpleado() {
+        if (gestorbdEmpleado.validarEmpleado(empleado)) {
+            System.out.println("se cargaron los datos");
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("faces/afiliado/List.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(ControllerManagedBeanEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("no se cargaron los datos");
         }
     }
 
@@ -89,7 +104,5 @@ public class ControllerManagedBeanEmpleado implements Serializable{
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
     }
-    
-    
-    
+
 }

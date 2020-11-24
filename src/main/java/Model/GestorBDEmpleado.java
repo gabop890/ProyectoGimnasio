@@ -5,6 +5,7 @@
  */
 package Model;
 
+import entidad.Empleado;
 import Config.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,14 +19,15 @@ import javax.faces.context.FacesContext;
  * @author Gabriel
  */
 public class GestorBDEmpleado {
-    private Connection conexion=null;
-    private Statement stm= null;
+
+    private Connection conexion = null;
+    private Statement stm = null;
     private ResultSet gimResultSet;
     private int id, salario;
     private String nombre, cargo, direccion;
     private int resultUpdate = 0;
     private long celular;
-    
+
     public ArrayList<Empleado> leerEmpleado() {
         ArrayList<Empleado> empleados = new ArrayList<Empleado>();
         Empleado empleadoHallado;
@@ -58,20 +60,20 @@ public class GestorBDEmpleado {
             return null;
         }
     }
-    
-     public boolean agregar(Empleado empleado) {
+
+    public boolean agregar(Empleado empleado) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
-            
+
             resultUpdate = stm.executeUpdate("insert into empleado values("
                     + empleado.getId()
                     + ",'" + empleado.getNombre()
                     + "','" + empleado.getCargo()
                     + "'," + empleado.getSalario()
-                    + ",'" + empleado.getDireccion()
-                    +"','" + empleado.getPassword()
+                    + ",'" + empleado.getPassword()
+                    + "','" + empleado.getDireccion()
                     + "'," + empleado.getCelular()
                     + ");");
             if (resultUpdate != 0) {
@@ -90,14 +92,14 @@ public class GestorBDEmpleado {
             return false;
         }
     }
-     
-     public boolean borrarEmpleado(Empleado borrarEmpleado) {
+
+    public boolean borrarEmpleado(Empleado borrarEmpleado) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
             resultUpdate = stm.executeUpdate("delete from empleado where("
-                    + "id=" + borrarEmpleado.getId()+ ");");
+                    + "id=" + borrarEmpleado.getId() + ");");
             if (resultUpdate != 0) {
                 conexion.close();
                 return true;
@@ -112,19 +114,19 @@ public class GestorBDEmpleado {
             return false;
         }
     }
-     
-     public boolean buscarEmpleado(Empleado buscarEmpleado){
+
+    public boolean buscarEmpleado(Empleado buscarEmpleado) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
-            gimResultSet=stm.executeQuery("select * from empleado where(id="
-            +buscarEmpleado.getId()+");");
-            if(!gimResultSet.next()){
+            gimResultSet = stm.executeQuery("select * from empleado where(id="
+                    + buscarEmpleado.getId() + ");");
+            if (!gimResultSet.next()) {
                 System.out.println("No se encontraron registros");
                 conexion.close();
                 return false;
-            }else{
+            } else {
                 conexion.close();
                 return true;
             }
@@ -134,14 +136,14 @@ public class GestorBDEmpleado {
             return false;
         }
     }
-     
-     public boolean editarEmpleado(Empleado empleadoEditar) {
+
+    public boolean editarEmpleado(Empleado empleadoEditar) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
             resultUpdate = stm.executeUpdate("update empleado set nombre='"
-                    + empleadoEditar.getNombre()                   
+                    + empleadoEditar.getNombre()
                     + "',cargo='" + empleadoEditar.getCargo()
                     + "',salario=" + empleadoEditar.getSalario()
                     + ",direccion='" + empleadoEditar.getDireccion()
@@ -158,6 +160,30 @@ public class GestorBDEmpleado {
             }
         } catch (Exception e) {
             System.out.println("Error en la base de datos.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean validarEmpleado(Empleado empleado) {
+        try {
+            System.out.println("usuario: "+empleado.getId()+"\n pass: "+empleado.getPassword());
+            Conexion conectaDB = new Conexion();
+            conexion = conectaDB.getConexion();
+            stm = conexion.createStatement();
+            gimResultSet = stm.executeQuery("select id, password from empleado where(id="
+                    + empleado.getId() + " and password='"
+                    + empleado.getPassword() + "');");
+            if (!gimResultSet.next()) {
+                System.out.println("usuario o contrasela incorrectos");
+                conexion.close();
+                return false;
+            } else {
+                conexion.close();
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la base de datos");
             e.printStackTrace();
             return false;
         }

@@ -6,26 +6,40 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
+        <style>
+            body{
+                background-image: url(images/fondofts.PNG);
+                background-repeat: no-repeat;
+                background-position: top;
+                background-size: 100% 400%;
+            }
+            form{
+                color: white;
+                
+            }
+        </style>
         <title>Gym trainning Soft</title>
     </h:head>
 
-    <h:body>
-       Login
-       <div class="ui-g-12 ui-md-2">
-           <p:linkButton outcome="/afiliado/List" value="Afiliado" style="margin-right:20px;"></p:linkButton>
-                <h:link outcome="/afiliado/List" value="Afiliado"/>
-                <br />
-                <h:link outcome="/clase/List" value="Clase"/>
-                <br />
-                <h:link outcome="/empleado/List" value=" Empleado"/>
-                <br />
-                <h:link outcome="/maquina/List" value="Maquina"/>
-                <br />
-                <h:link outcome="/menbresia/List" value="Menbresia"/>
-                <br />
-                <h:link  value="Participa"/>
-                <br />
-                <h:link  value="Utiliza"/>
-            </div>
+    <h:body >
+        
+        <h:form>
+            <h1>Fisico Trainning System</h1>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+            <h:panelGrid columns="2">
+                <p:outputLabel for="txtUsuario" value="Usuario" />
+                <p:inputText id="txtUsuario" required="true" value="#{controllerManagedBeanEmpleado.empleado.id}"/>
+
+                <p:outputLabel for="txtClave" value="Clave"/>
+                <p:password id="txtClave" required="true" value="#{controllerManagedBeanEmpleado.empleado.password}"/>
+
+                <h:column/>
+                <p:commandButton icon="ui-icon-key" value="Iniciar sesión" actionListener="#{controllerManagedBeanEmpleado.validarEmpleado()}" />
+                
+            </h:panelGrid>
+        </h:form>
+        
     </h:body>
 </html>
