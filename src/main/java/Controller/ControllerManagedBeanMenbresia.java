@@ -6,47 +6,84 @@
 package Controller;
 
 import Model.GestorBDMenbresia;
-import Model.Menbresia;
+import entidad.Menbresia;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Gabriel
  */
-public class ControllerManagedBeanMenbresia {
-    private int id, valor, cliente;
-    private Date fechaInicio, fechaFin;
+@ManagedBean(name = "controlManagedBeanMenbresia")
+@SessionScoped
+public class ControllerManagedBeanMenbresia implements Serializable{
+
+    private Menbresia menbresia;
     private GestorBDMenbresia gestordbMenbresia;
     private static ArrayList<Menbresia> menbresiaList;
 
     public ControllerManagedBeanMenbresia() {
-        gestordbMenbresia=new GestorBDMenbresia();
+        gestordbMenbresia = new GestorBDMenbresia();
+        menbresiaList = gestordbMenbresia.leerMenbresia();
+        menbresia = new Menbresia();
     }
 
-    public int getId() {
-        return id;
+    public void guardarMenbresia() {
+        if (gestordbMenbresia.agregarMenbresia(menbresia)) {
+            menbresiaList = gestordbMenbresia.leerMenbresia();
+            menbresia = new Menbresia();
+        }
     }
 
-    public int getValor() {
-        return valor;
+    public void borrarMnebresia(Menbresia m) {
+        if (gestordbMenbresia.borrarMenbresia(m)) {
+            try {
+                menbresiaList = gestordbMenbresia.leerMenbresia();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }
 
-    public int getCliente() {
-        return cliente;
+    public void buscarMenbresia(Menbresia m) {
+        menbresia = new Menbresia();
+        menbresia = m;
+        if (gestordbMenbresia.buscarmenbresia(m)) {
+            System.out.println("se cargaron los datos");
+        } else {
+            try {
+                menbresiaList = gestordbMenbresia.leerMenbresia();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
+    public void editarMenbresia() {
+        if (gestordbMenbresia.editarMenbresia(menbresia)) {
+            try {
+                menbresiaList = gestordbMenbresia.leerMenbresia();
+            } catch (Exception e) {
+                Logger.getLogger(ControllerManagedBeanCliente.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
     }
 
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public static ArrayList<Menbresia> getMenbresiaList() {
+    public ArrayList<Menbresia> getMenbresiaList() {
         return menbresiaList;
     }
-    
-    
+
+    public Menbresia getMenbresia() {
+        return menbresia;
+    }
+
+    public void setMenbresia(Menbresia menbresia) {
+        this.menbresia = menbresia;
+    }
+
 }

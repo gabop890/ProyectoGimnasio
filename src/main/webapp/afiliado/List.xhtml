@@ -30,29 +30,32 @@
 
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2">
-                <h:link outcome="/afiliado/List" value="Afiliado"/>
-                <br />
-                <h:link outcome="/clase/List" value="Clase"/>
-                <br />
-                <h:link outcome="/empleado/List" value=" Empleado"/>
-                <br />
-                <h:link outcome="/maquina/List" value="Maquina"/>
-                <br />
-                <h:link outcome="/menbresia/List" value="Menbresia"/>
-                <br />
-                <h:link  value="Participa"/>
-                <br />
-                <h:link  value="Utiliza"/>
+                <h:form>
+                <p:menu>
+                    <p:menuitem outcome="/afiliado/List" value="Afiliado"></p:menuitem>
+                    <p:menuitem outcome="/empleado/List" value=" Empleado"></p:menuitem>
+                </p:menu>
+                </h:form>
+                
+                    <p:linkButton outcome="/afiliado/List" value="Afiliado" style="margin-right:20px;"></p:linkButton>
+                    <p:linkButton outcome="/empleado/List" value=" Empleado" style="margin-right:20px;"></p:linkButton>
+                    <p:linkButton outcome="/maquina/List" value="Maquina" style="margin-right:20px;"></p:linkButton>
+                    <p:linkButton outcome="/clase/List" value="Clase" style="margin-right:20px;"></p:linkButton>
+                    <p:linkButton outcome="/menbresia/List" value="Menbresia" style="margin-right:20px;"></p:linkButton>
+                    <p:linkButton value="Participa" style="margin-right:20px;"></p:linkButton>
+                    <p:linkButton value="Utiliza" style="margin-right:20px;"></p:linkButton>
+                
+
             </div>
             <div class="ui-g-12 ui-md-10 ui-g-nopad">
                 <div class="ui-g-12">
-                    Fisico Trainning System
+                    <h1>Fisico Trainning System</h1>
                 </div>
                 <div class="ui-g-12 ui-g-nopad">
                     <div class="ui-g">
                         <h:form id="ListaAfiliados">                                   
                             <p:growl id="msgs" showDetail="true"/>      
-                            <p:dataTable id="cars1" widgetVar="cars1" var="cliente" value="#{controllerManagedBeanCliente.clienteList}" editable="true" style="margin-bottom:20px"  rows="10"
+                            <p:dataTable id="cars1" widgetVar="cars1" var="cliente" value="#{controllerManagedBeanCliente.clienteList}" style="margin-bottom:20px"  rows="10"
                                          paginator="true"
                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
@@ -71,14 +74,14 @@
                                 <p:column headerText="Nombre">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{cliente.nombre}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{cliente.nombre}" style="width:100%" label="Year"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{cliente.nombre}" style="width:100%" /></f:facet>
                                     </p:cellEditor>
                                 </p:column>
 
                                 <p:column headerText="Correo electronico">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{cliente.correo}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{cliente.correo}" style="width:100%" label="Year"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{cliente.correo}" style="width:100%" /></f:facet>
                                     </p:cellEditor>
                                 </p:column>
 

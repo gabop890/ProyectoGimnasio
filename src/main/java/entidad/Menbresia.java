@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package entidad;
 
 import java.util.Date;
 
@@ -12,15 +12,18 @@ import java.util.Date;
  * @author Gabriel
  */
 public class Menbresia {
-    private int id, valor, cliente;
+    private int id, valor, cliente, meses;
     private Date fechaInicio, fechaFin;
 
-    public Menbresia(int id, int valor, int cliente, Date fechaInicio, Date fechaFin) {
+    public Menbresia(int id, int valor, int cliente, int meses, Date fechaInicio) {
         this.id = id;
         this.valor = valor;
         this.cliente = cliente;
+        this.meses = meses;
         this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+    }
+
+    public Menbresia() {
     }
 
     public int getId() {
@@ -61,6 +64,14 @@ public class Menbresia {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public int getMeses() {
+        return meses;
+    }
+
+    public void setMeses(int meses) {
+        this.meses = meses;
     }
     
     
