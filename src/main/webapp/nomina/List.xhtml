@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>Facelet Title</title>
+        <title>Nomina</title>
         <style type="text/css">
             .ui-g div {
                 text-align: center;
@@ -58,65 +58,59 @@
                     <div class="ui-g">
                         <h:form id="ListaAfiliados">                                   
                             <p:growl id="msgs" showDetail="true"/>      
-                            <p:dataTable id="cars1" widgetVar="cars1" var="menbresia" value="#{controlManagedBeanMenbresia.menbresiaList}" editable="true" style="margin-bottom:20px"  rows="10"
+                            <p:dataTable id="cars1" widgetVar="cars1" var="maquina" value="#{controllerManagedBeanMaquina.maquinaList}" editable="true" style="margin-bottom:20px"  rows="10"
                                          paginator="true"
                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                                          rowsPerPageTemplate="5,10,15">
                                 <f:facet name="header">
-                                    Tabla Menbresia
+                                    Gestion Maquina
                                 </f:facet>
 
-                                <p:column headerText="Codigo">
+                                <p:column headerText="Numero de identificación">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{menbresia.id}" /></f:facet>
-                                        <f:facet name="input"><p:inputText id="modelInput" value="#{menbresia.id}" style="width:100%"/></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{maquina.id}" /></f:facet>
+                                        <f:facet name="input"><p:inputText id="modelInput" value="#{maquina.id}" style="width:100%"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column headerText="fecha de inicio">
+                                <p:column headerText="Fecha de compra">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{menbresia.fechaInicio}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{menbresia.fechaInicio}" style="width:100%" label="Year"/></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{maquina.fechaConpra}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{maquina.fechaConpra}" style="width:100%" label="Year"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column headerText="valor">
+                                <p:column headerText="Fecha de mantenimiento">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{menbresia.valor}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{menbresia.valor}" style="width:100%" label="Year"/></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{maquina.fechaMantenimiento}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{maquina.fechaMantenimiento}" style="width:100%" label="Year"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column headerText="cliente">
+                                <p:column headerText="Estado">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{menbresia.cliente}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{menbresia.cliente}" style="width:100%" label="Year"/></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{maquina.estado}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{maquina.estado}" style="width:100%" label="Year"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="meses">
+                                <p:column headerText="Descripción">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{menbresia.meses}" /></f:facet>
-                                        <f:facet name="input"><p:inputNumber value="#{menbresia.meses}" style="width:100%" label="Year"/></f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-                                <p:column headerText="Fecha de vencimiento">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{menbresia.fechaFin}" /></f:facet>
-                                        <f:facet name="input"><p:inputNumber value="#{menbresia.fechaFin}" style="width:100%" label="Year"/></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{maquina.descripcion}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{maquina.descripcion}" style="width:100%" label="Year"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Editar">
-                                    <p:commandButton value="Editar" actionListener="#{controlManagedBeanMenbresia.buscarMenbresia(menbresia)}" oncomplete="PF('editarCli').show();" update=":editCliente"/>
+                                    <p:commandButton value="Editar" actionListener="#{controllerManagedBeanMaquina.buscarMaquina(maquina)}" oncomplete="PF('editarCli').show();" update=":editCliente"/>
                                 </p:column>
                                 <p:column headerText="Eliminar">
-                                    <p:commandButton value="Eliminar" type="submit" action="#{controlManagedBeanMenbresia.borrarMnebresia(menbresia)}" update=":ListaAfiliados :msj"/>
+                                    <p:commandButton value="Eliminar" type="submit" action="#{controllerManagedBeanMaquina.borrarMaquina(maquina)}" update=":ListaAfiliados :msj"/>
                                 </p:column>
                             </p:dataTable>
 
                             <div class="ui-g">
                                 <div class="ui-g-12">
-                                    <p:commandButton value="Agregar nueva menbresia" type="button" onclick="PF('addcli').show();" />
+                                    <p:commandButton value="Agregar nueva maquina" type="button" onclick="PF('addcli').show();" />
 
                                 </div>
                             </div>
@@ -124,62 +118,61 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Footer -->
-            <p:separator/>
             <div class="ui-g-12">
                 <p:outputLabel>Autores:</p:outputLabel>
                 <br></br>
                 <p:outputLabel>Gabriel Peña Nivia, Brian Riffo, Sergio Solano.</p:outputLabel>
             </div>
         </div>
-        
         <!-- Mensaje modal para ingresar un nuevo cliente -->
-        <p:dialog header="Nueva menbresia" widgetVar="addcli" modal="true" height="400">
+        <p:dialog header="Nueva maquina" widgetVar="addcli" modal="true" height="400">
             <h:form id="addcliente">
                 <div class="ui-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="fecha de inicio" />
-                        <p:calendar value="#{controlManagedBeanMenbresia.menbresia.fechaInicio}" locale="de" navigator="true" pattern="yyyy-MMM-dd"/>
+                        <p:outputLabel for="firstname6" value="Codigo" />
+                        <p:inputText id="firstname6" value="#{controllerManagedBeanMaquina.maquina.id}"/>
                     </div>
                     <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="valor" />
-                        <p:inputNumber value="#{controlManagedBeanMenbresia.menbresia.valor}"/>
+                        <p:outputLabel value="Fecha de compra" />
+                        <p:calendar value="#{controllerManagedBeanMaquina.maquina.fechaConpra}" locale="es" navigator="true" pattern="yyyy-MM-dd" />
                     </div>
 
                     <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="meses" />
-                        <p:inputNumber value="#{controlManagedBeanMenbresia.menbresia.meses}"/>
+                        <p:outputLabel value="Fecha de mantenimiento" />
+                        <p:calendar value="#{controllerManagedBeanMaquina.maquina.fechaMantenimiento}" locale="es" navigator="true" pattern="yyyy-MM-dd"/>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
-                        <p:outputLabel value="cliente" />
-                        <p:inputText value="#{controlManagedBeanMenbresia.menbresia.cliente}" />
+                        <p:outputLabel value="estado" />
+                        <p:inputText value="#{controllerManagedBeanMaquina.maquina.estado}" />
                     </div>
-
+                    <div class="p-field p-col-12">
+                        <p:outputLabel value="descripcion" />
+                        <p:inputTextarea value="#{controllerManagedBeanMaquina.maquina.descripcion}"/>
+                    </div>
                 </div>
-                <p:commandButton actionListener="#{controlManagedBeanMenbresia.guardarMenbresia()}" value="Guardar" update=":ListaAfiliados addcliente :msj" oncomplete="PF('addcli').hide();"/>
+                <p:commandButton actionListener="#{controllerManagedBeanMaquina.guardarMaquina()}" value="Guardar" update=":ListaAfiliados addcliente :msj" oncomplete="PF('addcli').hide();"/>
             </h:form>
         </p:dialog> 
 
         <!-- Mensaje modal para editar al cliente -->
-        <p:dialog header="Editar menbresia" widgetVar="editarCli" modal="true" height="400">
+        <p:dialog header="Editar Maquina" widgetVar="editarCli" modal="true" height="400">
             <h:form id="editCliente">
                 <div class="ui-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="Fecha de inicio" />
-                        <p:calendar value="#{controlManagedBeanMenbresia.menbresia.fechaInicio}" locale="de" navigator="true" pattern="yyyy-MMM-dd"/>
+                        <p:outputLabel value="fecha de mantenimiento" />
+                        <p:calendar value="#{controllerManagedBeanMaquina.maquina.fechaMantenimiento}" locale="de" navigator="true" pattern="yyyy-MMM-dd"/>
                     </div>
 
                     <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="valor" />
-                        <p:inputNumber value="#{controlManagedBeanMenbresia.menbresia.valor}"/>
+                        <p:outputLabel for="city" value="estado" />
+                        <p:inputText id="city" value="#{controllerManagedBeanMaquina.maquina.estado}"/>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
-                        <p:outputLabel value="meses" />
-                        <p:inputNumber value="#{controlManagedBeanMenbresia.menbresia.meses}" />
+                        <p:outputLabel value="descripción" />
+                        <p:inputText value="#{controllerManagedBeanMaquina.maquina.descripcion}" />
                     </div>
                 </div>
-                <p:commandButton action="#{controlManagedBeanMenbresia.editarMenbresia()}" value="Guardar" update=":ListaAfiliados addcliente :msj" oncomplete="PF('editarCli').hide();"/>
+                <p:commandButton action="#{controllerManagedBeanMaquina.editarMaquina()}" value="Guardar" update=":ListaAfiliados addcliente :msj" oncomplete="PF('editarCli').hide();"/>
             </h:form>
         </p:dialog> 
     </h:body>

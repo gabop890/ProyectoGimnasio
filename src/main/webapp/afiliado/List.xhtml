@@ -6,12 +6,10 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>Facelet Title</title>
+        <title>Gym Trainning Soft</title>
         <style type="text/css">
-            .ui-g div {
-                background-color: #ededed;
-                text-align: center;
-                border: 1px solid #fafafa;
+            .ui-g div {                
+                text-align: center;                
             }
             i {
                 margin-right: 10px;
@@ -19,6 +17,15 @@
 
             .ui-grid-col-3 {
                 padding: 4px 10px;
+            }
+            body{
+                background-color: goldenrod;
+            }
+            #logo{
+                border-radius: 50%;
+            }
+            #banner{
+                border-radius: 20px;
             }
         </style>
     </h:head>
@@ -31,25 +38,23 @@
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2">
                 <h:form>
-                <p:menu>
-                    <p:menuitem outcome="/afiliado/List" value="Afiliado"></p:menuitem>
-                    <p:menuitem outcome="/empleado/List" value=" Empleado"></p:menuitem>
-                </p:menu>
+                    <img id="logo" src="../images/gym.jpg" height="200px" width="200px"/>
+                    <p:menu style="width: 200px;">
+                        <p:menuitem outcome="/afiliado/List" value="Afiliado"></p:menuitem>
+                        <p:menuitem outcome="/empleado/List" value=" Empleado"></p:menuitem>
+                        <p:menuitem outcome="/maquina/List" value="Maquina"></p:menuitem>
+                        <p:menuitem outcome="/menbresia/List" value="Menbresia"></p:menuitem>
+                        <p:menuitem outcome="/clase/List" value="Clases"></p:menuitem>
+                        <p:menuitem outcome="/nomina/List" value="Nomina"></p:menuitem>
+                        <p:menuitem outcome="/caja/List" value="Caja"></p:menuitem>
+                    </p:menu>
                 </h:form>
-                
-                    <p:linkButton outcome="/afiliado/List" value="Afiliado" style="margin-right:20px;"></p:linkButton>
-                    <p:linkButton outcome="/empleado/List" value=" Empleado" style="margin-right:20px;"></p:linkButton>
-                    <p:linkButton outcome="/maquina/List" value="Maquina" style="margin-right:20px;"></p:linkButton>
-                    <p:linkButton outcome="/clase/List" value="Clase" style="margin-right:20px;"></p:linkButton>
-                    <p:linkButton outcome="/menbresia/List" value="Menbresia" style="margin-right:20px;"></p:linkButton>
-                    <p:linkButton value="Participa" style="margin-right:20px;"></p:linkButton>
-                    <p:linkButton value="Utiliza" style="margin-right:20px;"></p:linkButton>
-                
+
 
             </div>
             <div class="ui-g-12 ui-md-10 ui-g-nopad">
                 <div class="ui-g-12">
-                    <h1>Fisico Trainning System</h1>
+                    <img id="banner" src="../images/banner.PNG" height="300px" width="100%"/>
                 </div>
                 <div class="ui-g-12 ui-g-nopad">
                     <div class="ui-g">
@@ -127,6 +132,7 @@
                     </div>
                 </div>
             </div>
+            <p:separator/>
             <div class="ui-g-12">
                 <p:outputLabel>Autores:</p:outputLabel>
                 <br></br>

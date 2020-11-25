@@ -7,11 +7,13 @@ package Model;
 
 import Config.Conexion;
 import entidad.Clase;
+import entidad.Nomina;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -19,24 +21,24 @@ import javax.faces.context.FacesContext;
  *
  * @author Gabriel
  */
-public class GestorBDClase {
-    private Connection conexion=null;
-    private Statement stm= null;
+public class GestorDBNomina {
+
+    private Connection conexion = null;
+    private Statement stm = null;
     private ResultSet gimResultSet;
-    private int codigo, instructor;
-    private double calificacion;
-    private String nombre, descripcion, recursos;
+    private int codigo, valor;
+    private Date fecha;
+    private long empleado;
     private int resultUpdate = 0;
-    
-    
-    public ArrayList<Clase> leerClase() {
-        ArrayList<Clase> clases = new ArrayList<Clase>();
-        Clase claseHallada;
+
+    public ArrayList<Nomina> leerNomina() {
+        ArrayList<Nomina> nominas = new ArrayList<Nomina>();
+        Nomina nominaHallada;
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
-            gimResultSet = stm.executeQuery("select * from clase");
+            gimResultSet = stm.executeQuery("select * from nomina");
             if (!gimResultSet.next()) {
                 System.out.println("No se encontraron registros");
                 conexion.close();
@@ -44,44 +46,42 @@ public class GestorBDClase {
             } else {
                 do {
                     codigo = gimResultSet.getInt("codigo");
-                    nombre = gimResultSet.getString("nombre");
-                    descripcion = gimResultSet.getString("descripcion");
-                    recursos = gimResultSet.getString("recursos");
-                    calificacion = gimResultSet.getDouble("calificacion");
-                    instructor = gimResultSet.getInt("instructor");
-                    claseHallada = new Clase(codigo, instructor, calificacion, nombre, descripcion, recursos);
-                    clases.add(claseHallada);
+                    fecha = gimResultSet.getDate("fecha");
+                    valor = gimResultSet.getInt("valor");
+                    empleado = gimResultSet.getLong("empleado");
+                    nominaHallada = new Nomina(codigo, valor, fecha, empleado);
+                    nominas.add(nominaHallada);
                 } while (gimResultSet.next());
                 conexion.close();
-                return clases;
+                return nominas;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("error en la base de datos");
             e.printStackTrace();
             return null;
         }
     }
 
-    public boolean agregarClase(Clase clase) {
+    public boolean agregarNomina(Nomina nomina) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
-            resultUpdate = stm.executeUpdate("insert into clase (nombre, descripcion, recursos, calificacion, instructor) values('"
-                    + clase.getNombre()
-                    + "','" + clase.getDescripcion()
-                    + "','" + clase.getRecursos()
-                    + "'," + clase.getCalificacion()
-                    + "," + clase.getInstructor()
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String currentTime = sdf.format(nomina.getFecha());
+            resultUpdate = stm.executeUpdate("insert into nomina (fecha, valor, empleado) values('"
+                    + currentTime
+                    + "'," + nomina.getValor()
+                    + "," + nomina.getEmpleado()
                     + ");");
             if (resultUpdate != 0) {
-                FacesMessage msg = new FacesMessage("Nuevo clase agregada", String.valueOf(clase.getCodigo()));
+                FacesMessage msg = new FacesMessage("Nueva nomina agregada", String.valueOf(nomina.getCodigo()));
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 conexion.close();
                 return true;
             } else {
                 conexion.close();
-                System.out.println("No se pudo insertar la clase");
+                System.out.println("No se pudo insertar la nomina");
                 return false;
             }
         } catch (Exception e) {
@@ -91,19 +91,19 @@ public class GestorBDClase {
         }
     }
 
-    public boolean borrarClase(Clase borrarClase) {
+    public boolean borrarNomina(Nomina borrarNomina) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
-            resultUpdate = stm.executeUpdate("delete from clase where("
-                    + "codigo=" + borrarClase.getCodigo()+ ");");
+            resultUpdate = stm.executeUpdate("delete from nomina where("
+                    + "codigo=" + borrarNomina.getCodigo() + ");");
             if (resultUpdate != 0) {
                 conexion.close();
                 return true;
             } else {
                 conexion.close();
-                System.out.println("No se pudo borrar la clase");
+                System.out.println("No se pudo borrar la nomina");
                 return false;
             }
         } catch (Exception e) {
@@ -112,19 +112,19 @@ public class GestorBDClase {
             return false;
         }
     }
-    
-    public boolean buscarClase(Clase buscarClase){
+
+    public boolean buscarNomina(Nomina buscarNomina) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
-            gimResultSet=stm.executeQuery("select * from clase where(codigo="
-            +buscarClase.getCodigo()+");");
-            if(!gimResultSet.next()){
+            gimResultSet = stm.executeQuery("select * from nomina where(codigo="
+                    + buscarNomina.getCodigo() + ");");
+            if (!gimResultSet.next()) {
                 System.out.println("No se encontraron registros");
                 conexion.close();
                 return false;
-            }else{
+            } else {
                 conexion.close();
                 return true;
             }
@@ -135,25 +135,25 @@ public class GestorBDClase {
         }
     }
 
-    public boolean editarClase(Clase claseEditar) {
+    public boolean editarNomina(Nomina nominaEditar) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
-            resultUpdate = stm.executeUpdate("update clase set nombre='"
-                    + claseEditar.getNombre()
-                    + "',descripcion='" + claseEditar.getDescripcion()
-                    + "',recursos='" + claseEditar.getRecursos()
-                    + "',calificacion=" + claseEditar.getCalificacion()
-                    + ",instructor=" + claseEditar.getInstructor()
-                    + " where codigo=" + claseEditar.getCodigo()
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String currentTime = sdf.format(nominaEditar.getFecha());
+            resultUpdate = stm.executeUpdate("update nomina set fecha='"
+                    + currentTime
+                    + "',valor=" + nominaEditar.getValor()
+                    + ",empleado=" + nominaEditar.getEmpleado()
+                    + " where codigo=" + nominaEditar.getCodigo()
                     + ";");
             if (resultUpdate != 0) {
                 conexion.close();
                 return true;
             } else {
                 conexion.close();
-                System.out.println("No se pudo editar la clase");
+                System.out.println("No se pudo editar la nomina");
                 return false;
             }
         } catch (Exception e) {

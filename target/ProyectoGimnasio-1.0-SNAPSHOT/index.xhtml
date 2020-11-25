@@ -11,7 +11,7 @@
                 background-image: url(images/fondofts.PNG);
                 background-repeat: no-repeat;
                 background-position: top;
-                background-size: 100% 400%;
+                background-size: 100% 150%;
             }
             form{
                 color: white;
@@ -24,11 +24,13 @@
     <h:body >
         
         <h:form>
-            <h1>Fisico Trainning System</h1>
+            
             <p:messages id="messages" showDetail="true" closable="true">
                 <p:autoUpdate/>
             </p:messages>
-            <h:panelGrid columns="2">
+            <h:panelGrid columns="2" styleClass="panelGridCenter" style="margin-left: 50%; margin-top: 25%;">
+                <h:column/>
+                <h1>Fisico Trainning System</h1>
                 <p:outputLabel for="txtUsuario" value="Usuario" />
                 <p:inputText id="txtUsuario" required="true" value="#{controllerManagedBeanEmpleado.empleado.id}"/>
 

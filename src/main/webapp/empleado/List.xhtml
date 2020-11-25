@@ -10,9 +10,7 @@
 
         <style type="text/css">
             .ui-g div {
-                background-color: #ededed;
                 text-align: center;
-                border: 1px solid #fafafa;
             }
             i {
                 margin-right: 10px;
@@ -20,6 +18,15 @@
 
             .ui-grid-col-3 {
                 padding: 4px 10px;
+            }
+            body{
+                background-color: goldenrod;
+            }
+            #logo{
+                border-radius: 50%;
+            }
+            #banner{
+                border-radius: 20px;
             }
         </style>
     </h:head>
@@ -29,23 +36,22 @@
 
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2">
-                <h:link outcome="/afiliado/List" value="Afiliado"/>
-                <br />
-                <h:link outcome="/clase/List" value="Clase"/>
-                <br />
-                <h:link outcome="/empleado/List" value=" Empleado"/>
-                <br />
-                <h:link outcome="/maquina/List" value="Maquina"/>
-                <br />
-                <h:link outcome="/menbresia/List" value="Menbresia"/>
-                <br />
-                <h:link  value="Participa"/>
-                <br />
-                <h:link  value="Utiliza"/>
+                <h:form>
+                    <img id="logo" src="../images/gym.jpg" height="200px" width="200px"/>
+                    <p:menu style="width: 200px;">
+                        <p:menuitem outcome="/afiliado/List" value="Afiliado"></p:menuitem>
+                        <p:menuitem outcome="/empleado/List" value=" Empleado"></p:menuitem>
+                        <p:menuitem outcome="/maquina/List" value="Maquina"></p:menuitem>
+                        <p:menuitem outcome="/menbresia/List" value="Menbresia"></p:menuitem>
+                        <p:menuitem outcome="/clase/List" value="Clases"></p:menuitem>
+                        <p:menuitem outcome="/nomina/List" value="Nomina"></p:menuitem>
+                        <p:menuitem outcome="/caja/List" value="Caja"></p:menuitem>
+                    </p:menu>
+                </h:form>
             </div>
             <div class="ui-g-12 ui-md-10 ui-g-nopad">
                 <div class="ui-g-12">
-                    Fisico Trainning System
+                    <img id="banner" src="../images/banner.PNG" height="300px" width="100%"/>
                 </div>
                 <div class="ui-g-12 ui-g-nopad">
                     <div class="ui-g">

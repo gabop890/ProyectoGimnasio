@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package entidad;
 
 /**
  *
@@ -21,6 +21,9 @@ public class Clase {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.recursos = recursos;
+    }
+
+    public Clase() {
     }
 
     public int getCodigo() {
