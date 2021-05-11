@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.Cliente;
+import entidad.Cliente;
 import Model.GestorBDCliente;
 import Model.GestorDBNomina;
 import entidad.Nomina;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *

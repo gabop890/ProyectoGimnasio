@@ -9,9 +9,11 @@ import Config.Conexion;
 import entidad.Menbresia;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -69,11 +71,12 @@ public class GestorBDMenbresia {
             stm = conexion.createStatement();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String currentTime = sdf.format(menbresia.getFechaInicio());
-            resultUpdate = stm.executeUpdate("insert into menbresia (valor, fechainicio, cliente, meses) values("
+            resultUpdate = stm.executeUpdate("insert into menbresia (valor, fechainicio, cliente, meses, fechafin) values("
                     + menbresia.getValor()
                     + ",'" + currentTime
                     + "'," + menbresia.getCliente()
                     + "," + menbresia.getMeses()
+                    + ",'" + calcularMeses(fechaInicio, meses)
                     + ");");
             if (resultUpdate != 0) {
                 FacesMessage msg = new FacesMessage("Nueva menbresia agregada", String.valueOf(menbresia.getId()));
@@ -85,11 +88,17 @@ public class GestorBDMenbresia {
                 System.out.println("No se pudo insertar la menbresia");
                 return false;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error en la base de datos" + resultUpdate);
-            e.printStackTrace();
             return false;
         }
+    }
+
+    public Date calcularMeses(Date fecha, int meses) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        calendar.add(calendar.MONTH, meses);
+        return calendar.getTime();
     }
 
     public boolean borrarMenbresia(Menbresia borrarMenbresia) {
@@ -120,7 +129,7 @@ public class GestorBDMenbresia {
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
             gimResultSet = stm.executeQuery("select * from menbresia where(codigo="
-                    + buscarMenbresia.getId()+ ");");
+                    + buscarMenbresia.getId() + ");");
             if (!gimResultSet.next()) {
                 System.out.println("No se encontraron registros");
                 conexion.close();

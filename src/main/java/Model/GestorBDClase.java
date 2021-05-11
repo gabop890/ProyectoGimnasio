@@ -20,15 +20,15 @@ import javax.faces.context.FacesContext;
  * @author Gabriel
  */
 public class GestorBDClase {
-    private Connection conexion=null;
-    private Statement stm= null;
+
+    private Connection conexion = null;
+    private Statement stm = null;
     private ResultSet gimResultSet;
     private int codigo, instructor;
     private double calificacion;
     private String nombre, descripcion, recursos;
     private int resultUpdate = 0;
-    
-    
+
     public ArrayList<Clase> leerClase() {
         ArrayList<Clase> clases = new ArrayList<Clase>();
         Clase claseHallada;
@@ -97,7 +97,7 @@ public class GestorBDClase {
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
             resultUpdate = stm.executeUpdate("delete from clase where("
-                    + "codigo=" + borrarClase.getCodigo()+ ");");
+                    + "codigo=" + borrarClase.getCodigo() + ");");
             if (resultUpdate != 0) {
                 conexion.close();
                 return true;
@@ -112,19 +112,19 @@ public class GestorBDClase {
             return false;
         }
     }
-    
-    public boolean buscarClase(Clase buscarClase){
+
+    public boolean buscarClase(Clase buscarClase) {
         try {
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
-            gimResultSet=stm.executeQuery("select * from clase where(codigo="
-            +buscarClase.getCodigo()+");");
-            if(!gimResultSet.next()){
+            gimResultSet = stm.executeQuery("select * from clase where(codigo="
+                    + buscarClase.getCodigo() + ");");
+            if (!gimResultSet.next()) {
                 System.out.println("No se encontraron registros");
                 conexion.close();
                 return false;
-            }else{
+            } else {
                 conexion.close();
                 return true;
             }

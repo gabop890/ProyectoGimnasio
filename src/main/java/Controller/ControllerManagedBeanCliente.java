@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.Cliente;
+import entidad.Cliente;
 import Model.GestorBDCliente;
 import java.io.Serializable;
 import java.util.ArrayList;

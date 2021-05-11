@@ -1,8 +1,12 @@
-C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\Maquina.java
+C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\entidad\Menbresia.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\GestorBDCliente.java
+C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\entidad\Maquina.java
+C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\entidad\Clase.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\GestorBDClase.java
+C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\entidad\Empleado.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Controller\ControllerManagedBeanCliente.java
-C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\Empleado.java
+C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Controller\controllerManagedBeanNomina.java
+C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\entidad\Nomina.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\GestorBDEmpleado.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\com\gimnasio\proyectogimnasio\resources\JavaEE8Resource.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Controller\ControllerManagedBeanMaquina.java
@@ -10,9 +14,8 @@ C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Confi
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Controller\ControllerManagedBeanMenbresia.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\com\gimnasio\proyectogimnasio\JAXRSConfiguration.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Controller\ControllerManagedBeanClase.java
-C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\Cliente.java
+C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\entidad\Cliente.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\GestorBDMaquina.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Controller\ControllerManagedBeanEmpleado.java
-C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\Menbresia.java
-C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\Clase.java
+C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\GestorDBNomina.java
 C:\Users\Gabriel\Documents\NetBeansProjects\ProyectoGimnasio\src\main\java\Model\GestorBDMenbresia.java

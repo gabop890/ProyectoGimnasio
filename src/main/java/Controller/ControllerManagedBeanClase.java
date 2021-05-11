@@ -6,17 +6,13 @@
 package Controller;
 
 import Model.GestorBDClase;
-import Model.GestorBDEmpleado;
 import entidad.Clase;
-import entidad.Empleado;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -24,7 +20,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "controllerManagedBeanClase")
 @SessionScoped
-public class ControllerManagedBeanClase implements Serializable{
+public class ControllerManagedBeanClase implements Serializable {
+
     private GestorBDClase gestorbdClase;
     private static ArrayList<Clase> ClaseList;
     private Clase clase;
@@ -34,8 +31,6 @@ public class ControllerManagedBeanClase implements Serializable{
         ClaseList = gestorbdClase.leerClase();
         clase = new Clase();
     }
-
-    
 
     public void guardarClase() {
         if (gestorbdClase.agregarClase(clase)) {
@@ -98,6 +93,5 @@ public class ControllerManagedBeanClase implements Serializable{
     public void setClase(Clase clase) {
         this.clase = clase;
     }
-    
-    
+
 }

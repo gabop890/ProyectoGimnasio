@@ -24,7 +24,7 @@ public class Conexion {
 
     public Conexion() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             url = "jdbc:mysql://" + servidor + "/" + database+"?serverTimezone=UTC";
             conexion = DriverManager.getConnection(url, usuario, password);
         } catch (SQLException | ClassNotFoundException ex) {

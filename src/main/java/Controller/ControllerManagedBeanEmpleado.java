@@ -27,6 +27,8 @@ public class ControllerManagedBeanEmpleado implements Serializable {
     private GestorBDEmpleado gestorbdEmpleado;
     private static ArrayList<Empleado> EmpleadoList;
     private Empleado empleado;
+    private String pass;
+    private int usuario;
 
     public ControllerManagedBeanEmpleado() {
         gestorbdEmpleado = new GestorBDEmpleado();
@@ -81,7 +83,7 @@ public class ControllerManagedBeanEmpleado implements Serializable {
     }
 
     public void validarEmpleado() {
-        if (gestorbdEmpleado.validarEmpleado(empleado)) {
+        if (gestorbdEmpleado.validarEmpleado(usuario, pass)) {
             System.out.println("se cargaron los datos");
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("faces/afiliado/List.xhtml");
@@ -103,6 +105,22 @@ public class ControllerManagedBeanEmpleado implements Serializable {
 
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public int getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(int usuario) {
+        this.usuario = usuario;
     }
 
 }

@@ -32,10 +32,10 @@
                 <h:column/>
                 <h1>Fisico Trainning System</h1>
                 <p:outputLabel for="txtUsuario" value="Usuario" />
-                <p:inputText id="txtUsuario" required="true" value="#{controllerManagedBeanEmpleado.empleado.id}"/>
+                <p:inputText id="txtUsuario" required="true" value="#{controllerManagedBeanEmpleado.usuario}"/>
 
                 <p:outputLabel for="txtClave" value="Clave"/>
-                <p:password id="txtClave" required="true" value="#{controllerManagedBeanEmpleado.empleado.password}"/>
+                <p:password id="txtClave" required="true" value="#{controllerManagedBeanEmpleado.pass}"/>
 
                 <h:column/>
                 <p:commandButton icon="ui-icon-key" value="Iniciar sesión" actionListener="#{controllerManagedBeanEmpleado.validarEmpleado()}" />

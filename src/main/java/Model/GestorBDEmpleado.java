@@ -165,15 +165,15 @@ public class GestorBDEmpleado {
         }
     }
 
-    public boolean validarEmpleado(Empleado empleado) {
+    public boolean validarEmpleado(int usuario, String pass) {
         try {
-            System.out.println("usuario: "+empleado.getId()+"\n pass: "+empleado.getPassword());
+            System.out.println("usuario: " + usuario + "\n pass: " + pass);
             Conexion conectaDB = new Conexion();
             conexion = conectaDB.getConexion();
             stm = conexion.createStatement();
             gimResultSet = stm.executeQuery("select id, password from empleado where(id="
-                    + empleado.getId() + " and password='"
-                    + empleado.getPassword() + "');");
+                    + usuario + " and password = '"
+                    + pass + "');");
             if (!gimResultSet.next()) {
                 System.out.println("usuario o contrasela incorrectos");
                 conexion.close();

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package entidad;
 
 import java.util.Date;
 
@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Gabriel
  */
 public class Cliente {
+
     private Integer clave;
     private String nombre, correo, password;
     private Date edad;
@@ -27,9 +28,17 @@ public class Cliente {
         this.estatura = estatura;
         this.celular = celular;
     }
-    
 
-    
+    public Cliente(Integer clave, String nombre, String correo, String password, Date edad, Double peso, Double estatura, long celular) {
+        this.clave = clave;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.password = password;
+        this.edad = edad;
+        this.peso = peso;
+        this.estatura = estatura;
+        this.celular = celular;
+    }
 
     public Cliente() {
     }
@@ -98,5 +107,4 @@ public class Cliente {
         this.password = password;
     }
 
-        
 }

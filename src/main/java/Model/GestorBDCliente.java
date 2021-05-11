@@ -5,6 +5,7 @@
  */
 package Model;
 
+import entidad.Cliente;
 import Config.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
