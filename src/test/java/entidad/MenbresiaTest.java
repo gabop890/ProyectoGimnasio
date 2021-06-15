@@ -14,7 +14,6 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -25,13 +24,13 @@ public class MenbresiaTest {
     public MenbresiaTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
+//    @BeforeClass
+//    public static void setUpClass() {
+//    }
+//
+//    @AfterClass
+//    public static void tearDownClass() {
+//    }
 
     /**
      * Test of getId method, of class Menbresia.

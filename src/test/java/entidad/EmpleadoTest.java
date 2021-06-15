@@ -19,13 +19,13 @@ public class EmpleadoTest {
     public EmpleadoTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
+//    @BeforeClass
+//    public static void setUpClass() {
+//    }
+//
+//    @AfterClass
+//    public static void tearDownClass() {
+//    }
 
     /**
      * Test of getId method, of class Empleado.

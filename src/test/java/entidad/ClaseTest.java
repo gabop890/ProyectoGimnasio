@@ -19,13 +19,13 @@ public class ClaseTest {
     public ClaseTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
+//    @BeforeClass
+//    public static void setUpClass() {
+//    }
+//
+//    @AfterClass
+//    public static void tearDownClass() {
+//    }
 
     /**
      * Test of getCodigo method, of class Clase.

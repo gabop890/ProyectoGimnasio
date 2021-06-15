@@ -24,13 +24,13 @@ public class ClienteTest {
     public ClienteTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
+//    @BeforeClass
+//    public static void setUpClass() {
+//    }
+//
+//    @AfterClass
+//    public static void tearDownClass() {
+//    }
 
     /**
      * Test of getClave method, of class Cliente.

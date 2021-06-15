@@ -18,12 +18,12 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({entidad.MenbresiaTest.class, entidad.MaquinaTest.class, entidad.ClaseTest.class, entidad.EmpleadoTest.class, entidad.ClienteTest.class, entidad.NominaTest.class})
 public class EntidadSuite {
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+//    @BeforeClass
+//    public static void setUpClass() throws Exception {
+//    }
+//
+//    @AfterClass
+//    public static void tearDownClass() throws Exception {
+//    }
     
 }

@@ -56,64 +56,11 @@
                 </div>
                 <div class="ui-g-12 ui-g-nopad">
                     <div class="ui-g">
-                        <h:form id="ListaAfiliados">                                   
-                            <p:growl id="msgs" showDetail="true"/>      
-                            <p:dataTable id="cars1" widgetVar="cars1" var="maquina" value="#{controllerManagedBeanMaquina.maquinaList}" editable="true" style="margin-bottom:20px"  rows="10"
-                                         paginator="true"
-                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                                         rowsPerPageTemplate="5,10,15">
-                                <f:facet name="header">
-                                    Gestion Maquina
-                                </f:facet>
-
-                                <p:column headerText="Numero de identificación">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{maquina.id}" /></f:facet>
-                                        <f:facet name="input"><p:inputText id="modelInput" value="#{maquina.id}" style="width:100%"/></f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="Fecha de compra">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{maquina.fechaConpra}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{maquina.fechaConpra}" style="width:100%" label="Year"/></f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="Fecha de mantenimiento">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{maquina.fechaMantenimiento}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{maquina.fechaMantenimiento}" style="width:100%" label="Year"/></f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="Estado">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{maquina.estado}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{maquina.estado}" style="width:100%" label="Year"/></f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-                                <p:column headerText="Descripción">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{maquina.descripcion}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{maquina.descripcion}" style="width:100%" label="Year"/></f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-                                <p:column headerText="Editar">
-                                    <p:commandButton value="Editar" actionListener="#{controllerManagedBeanMaquina.buscarMaquina(maquina)}" oncomplete="PF('editarCli').show();" update=":editCliente"/>
-                                </p:column>
-                                <p:column headerText="Eliminar">
-                                    <p:commandButton value="Eliminar" type="submit" action="#{controllerManagedBeanMaquina.borrarMaquina(maquina)}" update=":ListaAfiliados :msj"/>
-                                </p:column>
-                            </p:dataTable>
-
-                            <div class="ui-g">
-                                <div class="ui-g-12">
-                                    <p:commandButton value="Agregar nueva maquina" type="button" onclick="PF('addcli').show();" />
-
-                                </div>
-                            </div>
+                        <h:form id="formCaja">                                   
+                            <p:growl id="msgs" showDetail="true"/>   
+                            <p:panelGrid columns="1">
+                                <p:barChart />
+                            </p:panelGrid>
                         </h:form>
                     </div>
                 </div>
@@ -123,57 +70,6 @@
                 <br></br>
                 <p:outputLabel>Gabriel Peña Nivia, Brian Riffo, Sergio Solano.</p:outputLabel>
             </div>
-        </div>
-        <!-- Mensaje modal para ingresar un nuevo cliente -->
-        <p:dialog header="Nueva maquina" widgetVar="addcli" modal="true" height="400">
-            <h:form id="addcliente">
-                <div class="ui-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel for="firstname6" value="Codigo" />
-                        <p:inputText id="firstname6" value="#{controllerManagedBeanMaquina.maquina.id}"/>
-                    </div>
-                    <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="Fecha de compra" />
-                        <p:calendar value="#{controllerManagedBeanMaquina.maquina.fechaConpra}" locale="es" navigator="true" pattern="yyyy-MM-dd" />
-                    </div>
-
-                    <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="Fecha de mantenimiento" />
-                        <p:calendar value="#{controllerManagedBeanMaquina.maquina.fechaMantenimiento}" locale="es" navigator="true" pattern="yyyy-MM-dd"/>
-                    </div>
-                    <div class="p-field p-col-12 p-md-3">
-                        <p:outputLabel value="estado" />
-                        <p:inputText value="#{controllerManagedBeanMaquina.maquina.estado}" />
-                    </div>
-                    <div class="p-field p-col-12">
-                        <p:outputLabel value="descripcion" />
-                        <p:inputTextarea value="#{controllerManagedBeanMaquina.maquina.descripcion}"/>
-                    </div>
-                </div>
-                <p:commandButton actionListener="#{controllerManagedBeanMaquina.guardarMaquina()}" value="Guardar" update=":ListaAfiliados addcliente :msj" oncomplete="PF('addcli').hide();"/>
-            </h:form>
-        </p:dialog> 
-
-        <!-- Mensaje modal para editar al cliente -->
-        <p:dialog header="Editar Maquina" widgetVar="editarCli" modal="true" height="400">
-            <h:form id="editCliente">
-                <div class="ui-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel value="fecha de mantenimiento" />
-                        <p:calendar value="#{controllerManagedBeanMaquina.maquina.fechaMantenimiento}" locale="de" navigator="true" pattern="yyyy-MMM-dd"/>
-                    </div>
-
-                    <div class="p-field p-col-12 p-md-6">
-                        <p:outputLabel for="city" value="estado" />
-                        <p:inputText id="city" value="#{controllerManagedBeanMaquina.maquina.estado}"/>
-                    </div>
-                    <div class="p-field p-col-12 p-md-3">
-                        <p:outputLabel value="descripción" />
-                        <p:inputText value="#{controllerManagedBeanMaquina.maquina.descripcion}" />
-                    </div>
-                </div>
-                <p:commandButton action="#{controllerManagedBeanMaquina.editarMaquina()}" value="Guardar" update=":ListaAfiliados addcliente :msj" oncomplete="PF('editarCli').hide();"/>
-            </h:form>
-        </p:dialog> 
+        </div>         
     </h:body>
 </html>
